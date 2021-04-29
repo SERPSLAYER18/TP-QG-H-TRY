@@ -1,6 +1,7 @@
 package com.questgame.service.impl;
 
 import com.questgame.dao.TopicDao;
+import com.questgame.dao.domain.Topic;
 import com.questgame.dto.TopicDto;
 import com.questgame.mapper.TopicMapper;
 import com.questgame.service.TopicService;
@@ -19,7 +20,7 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public List<TopicDto> getTopics() {
         List<TopicDto> topics = new ArrayList<TopicDto>();
-        for (var t : topicDAO.getTopics()) {
+        for (Topic t : topicDAO.getTopics()) {
             topics.add(TopicMapper.topicToDto(t));
         }
         return topics;
@@ -28,7 +29,7 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public List<TopicDto> getNTopics(int n) {
         List<TopicDto> topics = new ArrayList<TopicDto>();
-        for (var t : topicDAO.getNTopics(n)) {
+        for (Topic t : topicDAO.getNTopics(n)) {
             topics.add(TopicMapper.topicToDto(t));
         }
         return topics;

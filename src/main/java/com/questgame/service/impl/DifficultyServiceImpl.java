@@ -1,6 +1,7 @@
 package com.questgame.service.impl;
 
 import com.questgame.dao.DifficultyDao;
+import com.questgame.dao.domain.Difficulty;
 import com.questgame.dto.DifficultyDto;
 import com.questgame.mapper.DifficultyMapper;
 import com.questgame.service.DifficultyService;
@@ -19,7 +20,7 @@ public class DifficultyServiceImpl implements DifficultyService {
     @Override
     public List<DifficultyDto> getDifficulties() {
         List<DifficultyDto> difficulties = new ArrayList<DifficultyDto>();
-        for (var d : difficultyDAO.getDifficulties()) {
+        for (Difficulty d : difficultyDAO.getDifficulties()) {
             difficulties.add(DifficultyMapper.difficultyToDto(d));
         }
         return difficulties;
