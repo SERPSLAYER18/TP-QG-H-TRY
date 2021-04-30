@@ -24,7 +24,6 @@ import java.util.List;
 @Slf4j
 public class QuestionController {
 
-    private static final int QUESTONS_IN_EACH_TOPIC = 5;
     private final QuestionServiceImpl questionService;
 
     @MessageMapping("/single_question")
@@ -37,16 +36,5 @@ public class QuestionController {
                 questionDtoQuery.getDifficulty());
     }
 
-    @MessageMapping("/miltiple_questions")
-    @SendTo("/topic/miltiple_questions")
-    public QuestionDto[][] randomQuestions(String sTopicCount) {
-        int topicsCount = Integer.parseInt(sTopicCount);
-        QuestionDto[][] questionDtos = new QuestionDto[topicsCount][QUESTONS_IN_EACH_TOPIC];
-
-        //TO DO:
-        //FILL questionDtos
-
-        return questionDtos;
-    }
 
 }
