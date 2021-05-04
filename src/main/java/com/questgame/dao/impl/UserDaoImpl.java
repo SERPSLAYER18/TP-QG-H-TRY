@@ -111,5 +111,4 @@ public class UserDaoImpl implements UserDao {
         jdbcTemplate.update("delete from game_user where id=:id", sqlInsertParametersMap);
 
     }
-
 }
