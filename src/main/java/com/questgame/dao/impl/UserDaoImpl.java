@@ -3,6 +3,7 @@ package com.questgame.dao.impl;
 import com.questgame.dao.UserDao;
 import com.questgame.dao.domain.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -21,12 +22,15 @@ public class UserDaoImpl implements UserDao {
         Map<String, Object> sqlInsertParametersMap = new HashMap<String, Object>();
         sqlInsertParametersMap.put("name", name);
         sqlInsertParametersMap.put("password", password);
-
-        return jdbcTemplate.queryForObject("select * from game_user where name=:name and password=:password", sqlInsertParametersMap, (resultSet, rowNum) ->
-                new User(resultSet.getLong("id"),
-                        resultSet.getString("name"),
-                        resultSet.getString("password").toCharArray(),
-                        resultSet.getInt("score")));
+        try {
+            return jdbcTemplate.queryForObject("select * from game_user where name=:name and password=:password", sqlInsertParametersMap, (resultSet, rowNum) ->
+                    new User(resultSet.getLong("id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("password").toCharArray(),
+                            resultSet.getInt("score")));
+        } catch (DataAccessException dae) {
+            return null;
+        }
 
     }
 
@@ -35,13 +39,15 @@ public class UserDaoImpl implements UserDao {
 
         Map<String, Object> sqlInsertParametersMap = new HashMap<String, Object>();
         sqlInsertParametersMap.put("id", id);
-
-        return jdbcTemplate.queryForObject("select * from game_user where id=:id", sqlInsertParametersMap, (resultSet, rowNum) ->
-                new User(resultSet.getLong("id"),
-                        resultSet.getString("name"),
-                        resultSet.getString("password").toCharArray(),
-                        resultSet.getInt("score")));
-
+        try {
+            return jdbcTemplate.queryForObject("select * from game_user where id=:id", sqlInsertParametersMap, (resultSet, rowNum) ->
+                    new User(resultSet.getLong("id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("password").toCharArray(),
+                            resultSet.getInt("score")));
+        } catch (DataAccessException dae) {
+            return null;
+        }
     }
 
     @Override
@@ -49,10 +55,12 @@ public class UserDaoImpl implements UserDao {
 
         Map<String, Object> sqlInsertParametersMap = new HashMap<String, Object>();
         sqlInsertParametersMap.put("id", id);
-
-        return jdbcTemplate.queryForObject("select score from game_user where id=:id", sqlInsertParametersMap, (resultSet, rowNum) ->
-                new Integer(resultSet.getInt("score")));
-
+        try {
+            return jdbcTemplate.queryForObject("select score from game_user where id=:id", sqlInsertParametersMap, (resultSet, rowNum) ->
+                    new Integer(resultSet.getInt("score")));
+        } catch (DataAccessException dae) {
+            return -1;
+        }
     }
 
     @Override

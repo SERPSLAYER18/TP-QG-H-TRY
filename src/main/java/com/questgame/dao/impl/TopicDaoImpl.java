@@ -3,6 +3,7 @@ package com.questgame.dao.impl;
 import com.questgame.dao.TopicDao;
 import com.questgame.dao.domain.Topic;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -18,10 +19,13 @@ public class TopicDaoImpl implements TopicDao {
 
     @Override
     public List<Topic> getTopics() {
-
-        return jdbcTemplate.query("SELECT * FROM topic", (resultSet, rowNum) ->
-                new Topic(resultSet.getLong("id"),
-                        resultSet.getString("name")));
+        try {
+            return jdbcTemplate.query("SELECT * FROM topic", (resultSet, rowNum) ->
+                    new Topic(resultSet.getLong("id"),
+                            resultSet.getString("name")));
+        } catch (DataAccessException dae) {
+            return null;
+        }
     }
 
     @Override
@@ -29,11 +33,14 @@ public class TopicDaoImpl implements TopicDao {
 
         Map<String, Integer> sqlInsertParametersMap = new HashMap<String, Integer>();
         sqlInsertParametersMap.put("num", n);
-
-        return jdbcTemplate.query("SELECT * FROM topic " +
-                "ORDER BY RANDOM() " +
-                "LIMIT :num", sqlInsertParametersMap, (resultSet, rowNum) ->
-                new Topic(resultSet.getLong("id"),
-                        resultSet.getString("name")));
+        try {
+            return jdbcTemplate.query("SELECT * FROM topic " +
+                    "ORDER BY RANDOM() " +
+                    "LIMIT :num", sqlInsertParametersMap, (resultSet, rowNum) ->
+                    new Topic(resultSet.getLong("id"),
+                            resultSet.getString("name")));
+        } catch (DataAccessException dae) {
+            return null;
+        }
     }
 }
