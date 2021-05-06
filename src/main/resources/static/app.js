@@ -19,7 +19,7 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/questions', function (questionDTO) {
+        stompClient.subscribe('/topic/clientMessagePool', function (questionDTO) {
             showQuestion(questionDTO);
         });
     });
@@ -38,7 +38,7 @@ function sendQuestionRequest() {
         alert("Connect to websocket first")
         return
     }
-    stompClient.send("/app/question", {}, JSON.stringify({
+    stompClient.send("/app/serverMessagePool", {}, JSON.stringify({
         'topic': $("#topic").val(),
         'difficulty':$("#difficulty").val()
     }));

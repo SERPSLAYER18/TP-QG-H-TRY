@@ -7,6 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class QuestionDto {
 
+    private final MessageType messageType = MessageType.question;
     private long id;
     private String text;
     private String topic;
