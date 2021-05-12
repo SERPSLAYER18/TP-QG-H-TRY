@@ -6,6 +6,8 @@ public interface UserService {
 
     UserDto get(String name, String password);
 
+    UserDto get(long id);
+
     int getScore(long id);
 
     void save(String name, String password);
@@ -17,5 +19,8 @@ public interface UserService {
     void updateScore(long id, int score);
 
     void delete(long id);
+
+    boolean checkNameAccessibility(String name);
+
 
 }

@@ -19,4 +19,6 @@ public interface UserDao {
     void updateScore(long id, int score);
 
     void delete(long id);
+
+    boolean checkName(String name);
 }

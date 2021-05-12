@@ -18,6 +18,11 @@ public class UserServiceImpl implements UserService {
         return UserMapper.userToDto(userDAO.get(name, password));
     }
 
+    @Override
+    public UserDto get(long id) {
+        return UserMapper.userToDto(userDAO.get(id));
+    }
+
 
     @Override
     public int getScore(long id) {
@@ -49,6 +54,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(long id) {
         userDAO.delete(id);
+    }
+
+    @Override
+    public boolean checkNameAccessibility(String name) {
+        return userDAO.checkName( name);
     }
 
 }

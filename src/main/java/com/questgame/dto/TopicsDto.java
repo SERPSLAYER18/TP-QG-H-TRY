@@ -6,8 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class TopicDto {
-    private long id;
-    private String topicName;
-
+public class TopicsDto {
+    private final MessageType messageType = MessageType.topics;
+    String[] topics;
 }

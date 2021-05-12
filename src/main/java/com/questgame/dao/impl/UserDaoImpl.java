@@ -111,4 +111,16 @@ public class UserDaoImpl implements UserDao {
         jdbcTemplate.update("delete from game_user where id=:id", sqlInsertParametersMap);
 
     }
+
+    @Override
+    public boolean checkName(String name) {
+        Map<String, Object> sqlInsertParametersMap = new HashMap<String, Object>();
+        sqlInsertParametersMap.put("name", name);
+        try {
+            return jdbcTemplate.queryForObject("select * from game_user where name=:name", sqlInsertParametersMap, (resultSet, rowNum) ->
+                    resultSet.first());
+        } catch (DataAccessException dae) {
+            return true;
+        }
+    }
 }

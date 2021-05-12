@@ -3,5 +3,10 @@ package com.questgame.dto;
 public enum MessageType {
     question,
     confirmation,
-    correctAnswer
+    correctAnswer,
+    topics,
+    difficulties,
+    user,
+    createUser,
+    updateScore
 }

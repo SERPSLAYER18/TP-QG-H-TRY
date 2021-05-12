@@ -9,4 +9,5 @@ public class ConformationDto {
 
     private final MessageType messageType = MessageType.confirmation;
     private Boolean passwordIsValid;
+    private int id;
 }
